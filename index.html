@@ -3,45 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Multiplayer Game</title>
+    <title>Multiplayer Tic-Tac-Toe</title>
     <link rel="stylesheet" href="style.css">
     <script src="/socket.io/socket.io.js"></script>
 </head>
 <body>
-    <h1>Multiplayer Dot Game</h1>
-    <canvas id="gameCanvas"></canvas>
-    <script>
-        const socket = io();
-        const canvas = document.getElementById("gameCanvas");
-        const ctx = canvas.getContext("2d");
-        canvas.width = 500;
-        canvas.height = 500;
-        let players = {};
-
-        socket.on("updatePlayers", (serverPlayers) => {
-            players = serverPlayers;
-            drawPlayers();
-        });
-
-        function drawPlayers() {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            for (let id in players) {
-                let player = players[id];
-                ctx.fillStyle = player.color;
-                ctx.beginPath();
-                ctx.arc(player.x, player.y, 10, 0, Math.PI * 2);
-                ctx.fill();
-            }
-        }
-
-        document.addEventListener("keydown", (e) => {
-            let dx = 0, dy = 0;
-            if (e.key === "ArrowUp") dy = -5;
-            if (e.key === "ArrowDown") dy = 5;
-            if (e.key === "ArrowLeft") dx = -5;
-            if (e.key === "ArrowRight") dx = 5;
-            socket.emit("move", { dx, dy });
-        });
-    </script>
+    <h1>Multiplayer Tic-Tac-Toe</h1>
+    <h2 id="status">Waiting for players...</h2>
+    <div class="board">
+        <div class="cell" data-index="0"></div>
+        <div class="cell" data-index="1"></div>
+        <div class="cell" data-index="2"></div>
+        <div class="cell" data-index="3"></div>
+        <div class="cell" data-index="4"></div>
+        <div class="cell" data-index="5"></div>
+        <div class="cell" data-index="6"></div>
+        <div class="cell" data-index="7"></div>
+        <div class="cell" data-index="8"></div>
+    </div>
+    <script src="script.js"></script>
 </body>
 </html>
